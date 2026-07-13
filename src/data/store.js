@@ -9,7 +9,7 @@ export const PRESET_REASONS = [
   '우선순위 밀림',
   '두려움',
   '귀찮음',
-  '늦게 일어남',
+  '늦잠',
 ];
 
 export const DEFAULT_CATEGORIES = ['업무', '개인', '학업'];
