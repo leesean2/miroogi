@@ -5,6 +5,9 @@ const DAY_NAMES = ['월', '화', '수', '목', '금', '토', '일'];
 const DAY_FULL = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
 const WEEKS = 6;
 
+// Date.getDay()는 0=일요일. 히트맵은 월요일부터라 월=0 … 일=6으로 옮긴다.
+const toMondayFirst = (dow) => (dow === 0 ? 6 : dow - 1);
+
 export default function PatternTab({ logs, categories, onMakeExperiment }) {
   const [filter, setFilter] = useState('전체');
 
@@ -18,8 +21,7 @@ export default function PatternTab({ logs, categories, onMakeExperiment }) {
       const diffDays = Math.floor((todayStart - logDayStart) / 86400000);
       if (diffDays < 0 || diffDays >= WEEKS * 7) return;
       const week = Math.floor(diffDays / 7);
-      let dow = new Date(l.ts).getDay(); // 0=일
-      dow = dow === 0 ? 6 : dow - 1; // 월=0 … 일=6
+      const dow = toMondayFirst(new Date(l.ts).getDay());
       grid[week][dow]++;
     });
     return grid;
@@ -68,7 +70,7 @@ export default function PatternTab({ logs, categories, onMakeExperiment }) {
           <div className="obs-card">
             <span className="k">관찰</span>
             <p>{observation}</p>
-            <div style={{ marginTop: 12 }}>
+            <div className="obs-actions">
               <button className="btn primary" onClick={() => onMakeExperiment(observation)}>
                 실험으로 만들기 →
               </button>

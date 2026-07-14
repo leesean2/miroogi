@@ -120,6 +120,7 @@ body {
 .obs-card { margin-top: 24px; background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
 .obs-card .k { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--sage); letter-spacing: .05em; }
 .obs-card p { font-family: 'Fraunces', serif; font-size: 15px; margin: 8px 0 0; line-height: 1.55; }
+.obs-actions { margin-top: 12px; }
 
 .btn {
   border-radius: 12px; padding: 9px 15px; font-size: 12.5px; cursor: pointer;
@@ -133,6 +134,9 @@ body {
   display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px;
   color: #fff; padding: 4px 9px; border-radius: 10px; margin-bottom: 10px;
 }
+.mini.sage { background: var(--sage); }
+.mini.clay { background: var(--clay); }
+.exp-actions { display: flex; gap: 8px; margin-top: 12px; }
 .exp-card h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 16.5px; margin: 0 0 8px; line-height: 1.45; }
 .exp-card .sub { font-size: 12.5px; color: var(--ink-soft); line-height: 1.6; margin: 0; }
 
@@ -156,6 +160,7 @@ body {
 .navitem .nd.off { background: transparent; }
 
 .section-gap { margin-top: 22px; }
+.tag-label-top { margin-top: 10px; }
 
 /* ── 온보딩 ── */
 .onboarding {

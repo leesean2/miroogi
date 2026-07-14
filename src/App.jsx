@@ -32,18 +32,23 @@ export default function App() {
   const [suggestions, setSuggestions] = useState([]);
 
   // 첫 마운트 시 IndexedDB에서 저장된 상태를 불러온다.
-  // 저장된 값이 없는 키(첫 실행)는 초기값을 유지한다.
+  // 저장된 값이 없는 키(첫 실행)는 각 상태의 초기값을 유지한다.
   useEffect(() => {
     let cancelled = false;
+    const setters = {
+      onboarded: setOnboarded,
+      categories: setCategories,
+      customReasons: setCustomReasons,
+      logs: setLogs,
+      experiments: setExperiments,
+      suggestions: setSuggestions,
+    };
     loadState()
       .then((saved) => {
         if (cancelled) return;
-        if (saved.onboarded !== undefined) setOnboarded(saved.onboarded);
-        if (saved.categories !== undefined) setCategories(saved.categories);
-        if (saved.customReasons !== undefined) setCustomReasons(saved.customReasons);
-        if (saved.logs !== undefined) setLogs(saved.logs);
-        if (saved.experiments !== undefined) setExperiments(saved.experiments);
-        if (saved.suggestions !== undefined) setSuggestions(saved.suggestions);
+        for (const [key, value] of Object.entries(saved)) {
+          if (value !== undefined) setters[key]?.(value);
+        }
         setReady(true);
       })
       // 저장소를 아예 못 쓰는 환경에서도 앱은 초기 상태로 뜨게 한다.
