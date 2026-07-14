@@ -10,11 +10,13 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.png', 'apple-touch-icon.png'],
       manifest: {
+        id: '/',
         name: '미루기 패턴 트래커',
         short_name: '미루기',
         description: '미루는 나를 미워하지 않고 관찰하기. 기록하고, 패턴을 발견하고, 작은 실험을 해봐요.',
         lang: 'ko',
         display: 'standalone',
+        orientation: 'portrait',
         theme_color: '#F3F1EA',
         background_color: '#F3F1EA',
         icons: [
