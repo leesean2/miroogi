@@ -24,3 +24,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Android release signing secrets — never commit
+android/keystore.properties
+*.jks
+*.keystore
