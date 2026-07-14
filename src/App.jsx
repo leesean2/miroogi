@@ -35,16 +35,21 @@ export default function App() {
   // 저장된 값이 없는 키(첫 실행)는 초기값을 유지한다.
   useEffect(() => {
     let cancelled = false;
-    loadState().then((saved) => {
-      if (cancelled) return;
-      if (saved.onboarded !== undefined) setOnboarded(saved.onboarded);
-      if (saved.categories !== undefined) setCategories(saved.categories);
-      if (saved.customReasons !== undefined) setCustomReasons(saved.customReasons);
-      if (saved.logs !== undefined) setLogs(saved.logs);
-      if (saved.experiments !== undefined) setExperiments(saved.experiments);
-      if (saved.suggestions !== undefined) setSuggestions(saved.suggestions);
-      setReady(true);
-    });
+    loadState()
+      .then((saved) => {
+        if (cancelled) return;
+        if (saved.onboarded !== undefined) setOnboarded(saved.onboarded);
+        if (saved.categories !== undefined) setCategories(saved.categories);
+        if (saved.customReasons !== undefined) setCustomReasons(saved.customReasons);
+        if (saved.logs !== undefined) setLogs(saved.logs);
+        if (saved.experiments !== undefined) setExperiments(saved.experiments);
+        if (saved.suggestions !== undefined) setSuggestions(saved.suggestions);
+        setReady(true);
+      })
+      // 저장소를 아예 못 쓰는 환경에서도 앱은 초기 상태로 뜨게 한다.
+      .catch(() => {
+        if (!cancelled) setReady(true);
+      });
     return () => {
       cancelled = true;
     };
