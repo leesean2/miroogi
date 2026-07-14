@@ -3,7 +3,7 @@ import LogTab from './components/LogTab';
 import PatternTab from './components/PatternTab';
 import ExperimentTab from './components/ExperimentTab';
 import Onboarding from './components/Onboarding';
-import { DEFAULT_CATEGORIES } from './data/store';
+import { DEFAULT_CATEGORIES, PRESET_REASONS } from './data/store';
 import { loadState, saveState } from './data/db';
 
 // 값이 바뀔 때마다 IndexedDB에 저장. ready 이전(로드 완료 전)에는 저장하지 않아
@@ -68,7 +68,8 @@ export default function App() {
       { id: `log-${Date.now()}`, name, category, reason: reason || null, custom, ts: Date.now() },
       ...l,
     ]);
-    if (custom && reason && !customReasons.includes(reason)) {
+    // 프리셋과 같은 문구를 직접 입력해도 사유 목록에 중복으로 쌓이지 않게 한다.
+    if (custom && reason && !PRESET_REASONS.includes(reason) && !customReasons.includes(reason)) {
       setCustomReasons((r) => [...r, reason]);
     }
   };

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import TopBar from './TopBar';
 
 const DAY_NAMES = ['월', '화', '수', '목', '금', '토', '일'];
 const DAY_FULL = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'];
@@ -36,10 +37,7 @@ export default function PatternTab({ logs, categories, onMakeExperiment }) {
 
   return (
     <>
-      <div className="topbar">
-        <h1>패턴</h1>
-        <p>최근 {WEEKS}주</p>
-      </div>
+      <TopBar title="패턴" sub={`최근 ${WEEKS}주`} />
       <div className="content">
         <div className="filter-row">
           {['전체', ...categories].map((c) => (

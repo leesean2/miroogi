@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { CAT_COLORS, PRESET_REASONS, fmtTime, isToday, todayLabel } from '../data/store';
+import TopBar from './TopBar';
 
 export default function LogTab({ logs, addLog, categories, addCategory, customReasons }) {
   const [taskName, setTaskName] = useState('');
@@ -10,7 +11,8 @@ export default function LogTab({ logs, addLog, categories, addCategory, customRe
   const [showNewCat, setShowNewCat] = useState(false);
   const [newCatText, setNewCatText] = useState('');
 
-  const allReasons = [...PRESET_REASONS, ...customReasons];
+  // 과거 데이터에 프리셋과 겹치는 커스텀 사유가 남아 있어도 목록에는 한 번만 보여준다.
+  const allReasons = [...new Set([...PRESET_REASONS, ...customReasons])];
   const todayLogs = logs.filter((l) => isToday(l.ts));
 
   const submit = () => {
@@ -40,10 +42,7 @@ export default function LogTab({ logs, addLog, categories, addCategory, customRe
 
   return (
     <>
-      <div className="topbar">
-        <h1>오늘</h1>
-        <p>{todayLabel()}</p>
-      </div>
+      <TopBar title="오늘" sub={todayLabel()} />
       <div className="content">
         <p className="prompt">오늘 미룬 일이<br />있었나요?</p>
 
@@ -95,7 +94,7 @@ export default function LogTab({ logs, addLog, categories, addCategory, customRe
             </button>
           ))}
           <button
-            className="tag dashed"
+            className={`tag dashed ${showCustomReason ? 'on' : ''}`}
             onClick={() => {
               setShowCustomReason(!showCustomReason);
               setSelReason(null);
