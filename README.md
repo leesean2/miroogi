@@ -38,7 +38,28 @@ src/
 - Vite + React 19, `vite-plugin-pwa`(오프라인 캐시, 자동 업데이트), `idb`
 - 서버·계정 없음. 상태는 슬라이스 단위로 IndexedDB `miroogi` DB에 저장
 
-## 배포
+## 배포 (웹)
 
 GitHub `main` 브랜치에 푸시하면 Vercel이 자동으로 production 배포하고
 `miroogi.vercel.app` 도메인에 연결한다. 별도 배포 명령은 필요 없다.
+
+## 안드로이드 APK
+
+Capacitor로 웹 빌드를 안드로이드 앱(`app.miroogi.tracker`)으로 감싼다.
+웹 자산이 APK 안에 번들되므로 오프라인에서도 도메인 없이 동작한다.
+
+필요 환경: JDK 21, Android SDK(platform 36 / build-tools 36 / platform-tools).
+빌드 시 `JAVA_HOME`은 JDK 21을, `ANDROID_HOME`은 SDK 경로를 가리켜야 한다
+(시스템 기본 JDK가 22 이상이면 AGP 빌드가 실패하므로 JDK 21 사용).
+
+```bash
+npm run build                 # 웹 빌드 → dist/
+npx cap sync android          # dist/를 android 프로젝트로 복사
+cd android
+./gradlew assembleDebug       # → app/build/outputs/apk/debug/app-debug.apk
+```
+
+- 산출물 `app-debug.apk`는 디버그 키로 서명되어 사이드로드 설치가 가능하다.
+- 앱 아이콘은 `assets/`의 소스에서 `npx capacitor-assets generate --android`로 생성한다.
+- `android/local.properties`의 `sdk.dir` 경로는 슬래시(`/`)로 적어야 한다
+  (백슬래시는 Java properties가 유니코드 이스케이프로 오해해 빌드가 깨진다).

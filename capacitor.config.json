@@ -1,0 +1,8 @@
+{
+  "appId": "app.miroogi.tracker",
+  "appName": "미루기",
+  "webDir": "dist",
+  "android": {
+    "backgroundColor": "#F3F1EA"
+  }
+}

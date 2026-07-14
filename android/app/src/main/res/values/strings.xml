@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">미루기</string>
+    <string name="title_activity_main">미루기</string>
+    <string name="package_name">app.miroogi.tracker</string>
+    <string name="custom_url_scheme">app.miroogi.tracker</string>
+</resources>
